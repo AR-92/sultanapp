@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="manifest" href="./manifest.json">
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="x-ua-compatible" content="IE=Edge" />
+    <link rel="shortcut icon" href="./favicon.ico" sizes="32x32" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/bundle.css">
+    <title>Where Work Happens !</title>
+    <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+    <!-- <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script> -->
+    <!-- <script>
+        if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }
+    </script> -->
+</head>
+
+<body>
+    <div id="titleBarRoot"></div>
+    <div id="root"></div>
+</body>
+
+<!-- vendors -->
+<script type="text/javascript" src="./libs/jq.min.js"></script>
+<script type="text/javascript" src="./libs/popper.min.js"></script>
+<script type="text/javascript" src="./libs/bs.min.js"></script>
+<script type="text/javascript" src="./libs/pouchdb.min.js"></script>
+<script type="text/javascript" src="./libs/pouchdbFind.js"></script>
+<script type="text/javascript" src="./libs/moment.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
+    integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script> -->
+<!-- utils -->
+<script type="text/javascript" src="./utils/router.js"></script>
+<script type="text/javascript" src="./utils/gards.js"></script>
+<!-- services -->
+<script type="text/javascript" src="./services/alert.js"></script>
+<script type="text/javascript" src="./services/activityFeed.js"></script>
+<script type="text/javascript" src="./services/notifications.js"></script>
+<script type="text/javascript" src="./services/permissions.js"></script>
+<script type="text/javascript" src="./services/accounts.js"></script>
+<script type="text/javascript" src="./services/grid.js"></script>
+<script type="text/javascript" src="./services/appData.js"></script>
+<!-- components -->
+<script type="text/javascript" src="./components/gridForm.js"></script>
+<script type="text/javascript" src="./components/alert.js"></script>
+<script type="text/javascript" src="./components/titlebar.js"></script>
+<!-- app pages -->
+<script type="text/javascript" src="./pages/signup.js"></script>
+<script type="text/javascript" src="./pages/login.js"></script>
+<script type="text/javascript" src="./pages/settings.js"></script>
+<script type="text/javascript" src="./pages/activityFeed.js"></script>
+<script type="text/javascript" src="./pages/notifications.js"></script>
+<script type="text/javascript" src="./pages/report.js"></script>
+<!-- main Admin Pages -->
+<script type="text/javascript" src="./admin/index.js"></script>
+<script type="text/javascript" src="./admin/permission.js"></script>
+<script type="text/javascript" src="./admin/adminNotifications.js"></script>
+<script type="text/javascript" src="./admin/adminactivity.js"></script>
+<script type="text/javascript" src="./admin/adminSettings.js"></script>
+<script type="text/javascript" src="./admin/adminpermissions.js"></script>
+<!-- index -->
+<script type="text/javascript" src="./index.js"></script>
+<script>
+    // Check that service workers are supported
+    if ('serviceWorker' in navigator) {
+        // Use the window load event to keep the page load performant
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js');
+        });
+    }
+</script>
+
+</html>
