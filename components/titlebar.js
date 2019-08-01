@@ -3,9 +3,9 @@
 // `;
 
 function titleBarInit(id) {
-    // console.log("titlebar i am loaded")
     var login = JSON.parse(localStorage.getItem("loggedIn"));
     var loginAdmin = JSON.parse(localStorage.getItem("loggedInAdmin"));
+    console.log("titlebar i am loaded",loginAdmin)
 
     var linkTemp = '';
     var navLinks = JSON.parse(localStorage.getItem("navbarLinks"));
@@ -38,6 +38,19 @@ ${linkTemp}
         var logo = `
         <img src="./img/logo.png" style="max-width: 39%;" ></img>
         `;
+        // <a class="dropdown-item" onclick="toggleDeveloperConsole()">Developer Tools</a>
+        // <a class="dropdown-item" onclick="mainRouter({
+        //     page: 'AdminNotificaionPage',
+        //     html: adminNotifications
+        // })">Notifications</a>
+        // <a class="dropdown-item" onclick="mainRouter({
+        //     page: 'AdminSettingsPage',
+        //     html: adminSettingsPage
+        // })">Settings</a>
+        // <a class="dropdown-item" onclick="mainRouter({
+        //     page: 'AdminPermissionsPage',
+        //     html: adminPermissionPage
+        // })">Permissions</a>
         var links = `
         <div class="dropdown">
         <button class="btn btn-secondary taskBaruser btn-sm round dropdown-toggle" type="button"
@@ -46,26 +59,14 @@ ${linkTemp}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <a class="dropdown-item" onclick="mainRouter({
+            e:event,
             page: 'AdminAccountsPage',
             html: mainAdminPageHTML
         })">Accounts</a>
-        <a class="dropdown-item" onclick="toggleDeveloperConsole()">Developer Tools</a>
-        <a class="dropdown-item" onclick="mainRouter({
-            page: 'AdminNotificaionPage',
-            html: adminNotifications
-        })">Notifications</a>
         <a class="dropdown-item" onclick="mainRouter({
             page: 'AdminActivityPage',
             html: adminActivityFeedHTML
         })">Activities</a>
-        <a class="dropdown-item" onclick="mainRouter({
-            page: 'AdminSettingsPage',
-            html: adminSettingsPage
-        })">Settings</a>
-        <a class="dropdown-item" onclick="mainRouter({
-            page: 'AdminPermissionsPage',
-            html: adminPermissionPage
-        })">Permissions</a>
         <a class="dropdown-item" onclick="logout()"><span class="text-danger">Log Out</span></a>
         </div>
     </div>
@@ -92,23 +93,27 @@ ${linkTemp}
     </style>
     <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand">
-    ${logo}
     </a>
     <form class="form-inline">
     ${links}
-    <span class="text-success">
-    <ion-icon name="radio-button-on" onclick="appMinimize()"></ion-icon>
-    </span>
-    <span class="text-warning">
-    <ion-icon name="radio-button-on" onclick="appMaximize()"></ion-icon>
-    </span>
-    <span class="text-danger">
-    <ion-icon name="radio-button-on" onclick="appClose()"></ion-icon>
-    </span>
     </form>
     </nav>
     <hr style="margin: 0px;">
     `;
+    // ${logo}
+    // <span class="text-success">
+    // <ion-icon name="radio-button-on" onclick="appMinimize()"></ion-icon>
+    // </span>
+    // <span class="text-warning">
+    // <ion-icon name="radio-button-on" onclick="appMaximize()"></ion-icon>
+    // </span>
+    // <span class="text-danger">
+    // <ion-icon name="radio-button-on" onclick="appClose()"></ion-icon>
+    // </span>
     // <ion-icon name="radio-button-on" id="" onclick="window.top.close();"></ion-icon>
-    document.getElementById(id).innerHTML=titlebarComponents;
+    if(login===false && loginAdmin===false || loginAdmin===undefined ){
+        document.getElementById(id).innerHTML='';
+    }else{
+        document.getElementById(id).innerHTML=titlebarComponents;
+    }
 }

@@ -22,7 +22,7 @@ if (workbox) {
   },
   {
     "url": "admin/index.js",
-    "revision": "750565dac701d26838956e43f4c91f7e"
+    "revision": "3d7b5de0e4ea4dda1bbf24b45259f9a8"
   },
   {
     "url": "admin/permission.js",
@@ -38,15 +38,11 @@ if (workbox) {
   },
   {
     "url": "components/titlebar.js",
-    "revision": "e25793bf2d627b1b97713d7450e957a5"
+    "revision": "7abb0bd8a03504d09b50fa0322e33dd5"
   },
   {
     "url": "css/bundle.css",
     "revision": "993fc336b496f126081d5bd51a29a547"
-  },
-  {
-    "url": "electron.js",
-    "revision": "be07f132b9cd37b0ab1a62f0f56448e1"
   },
   {
     "url": "favicon.ico",
@@ -78,11 +74,11 @@ if (workbox) {
   },
   {
     "url": "index.html",
-    "revision": "4ed6fe0562d7e40414da757cc212055f"
+    "revision": "481ad7b74b367c3e8237a3fe7c14939c"
   },
   {
     "url": "index.js",
-    "revision": "6e4258ab9367a480476e897c97230cf1"
+    "revision": "b97c9f0f090134ffebf6db5dd2a4443d"
   },
   {
     "url": "libs/bs.min.js",
@@ -118,11 +114,15 @@ if (workbox) {
   },
   {
     "url": "pages/login.js",
-    "revision": "e2d7f63043deecfa45cb04a8e1e3c529"
+    "revision": "e6610f3cc015395a584746f796e5d9ce"
   },
   {
     "url": "pages/notifications.js",
     "revision": "b7d71f9a1f7909a6476f78505142cac1"
+  },
+  {
+    "url": "pages/purchase.js",
+    "revision": "7c6cb5f6fb594d5911e92f2d86f22dac"
   },
   {
     "url": "pages/report.js",
@@ -134,11 +134,11 @@ if (workbox) {
   },
   {
     "url": "pages/signup.js",
-    "revision": "16a37db38d280a0df9a301e8a0415d37"
+    "revision": "1f37897f101cfe9297a9041b3b19290c"
   },
   {
     "url": "services/accounts.js",
-    "revision": "ef2ef0298cfaf89de9b1eef5310ab5b9"
+    "revision": "250818ec8004cda916bf296a08d6e794"
   },
   {
     "url": "services/activityFeed.js",
@@ -150,7 +150,7 @@ if (workbox) {
   },
   {
     "url": "services/appData.js",
-    "revision": "fe075010c2e8365c8f31c1e7c6a15016"
+    "revision": "bdb77744221dc9cb019d6d4cf6ddf8f0"
   },
   {
     "url": "services/grid.js",
@@ -165,12 +165,8 @@ if (workbox) {
     "revision": "ce4bc547b6472eb16ec82af3ecdfc002"
   },
   {
-    "url": "utils/gards.js",
-    "revision": "d41d8cd98f00b204e9800998ecf8427e"
-  },
-  {
     "url": "utils/router.js",
-    "revision": "49212f20400ae75e14314d90e7986e75"
+    "revision": "82a07be5fcca51c972bd2c7f263b0557"
   }
 ]);
   workbox.routing.registerRoute(

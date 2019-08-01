@@ -24,7 +24,7 @@
 
 document.onreadystatechange = () => {
     if (document.readyState == "complete") {
-        appRest();
+        // appRest();
         mainRouter({
             page: 'loginPage',
             html: loginPageHTML

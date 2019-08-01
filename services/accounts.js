@@ -53,11 +53,11 @@ function loginAccount(value) {
     return new Promise((resolve, reject) => {
         db.get(value[0].value).then(function (doc) {
             if (doc.password === value[1].value) {
-                alert.note(3000, "blue", `
-                <small class="form-text text-muted">
-                Wellcome ${value[0].value} !
-                </small>
-                `)
+                // alert.note(3000, "blue", `
+                // <small class="form-text text-muted">
+                // Wellcome ${value[0].value} !
+                // </small>
+                // `)
                 resolve(true)
             }else{
                 alert.note(3000, "blue", `

@@ -94,7 +94,6 @@ function signupForm() {
         .test(String(data[2].value).toLowerCase())) {
         // console.log("this is signup form ", data);
         createAccount(data)
-
         document.getElementById("signupForm").reset();
     }
 }

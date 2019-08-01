@@ -1,6 +1,4 @@
 function allAppData() {
-
-
     var navbarLinks = [
         // {
         //     name: "Reports",
@@ -10,22 +8,22 @@ function allAppData() {
         //     name: "Sales",
         //     var: "salesPage"
         // },
+        {
+            name: 'Purchase',
+            link: 'purchasePage'
+        },
         // {
-        //     name: "Purchase",
-        //     var: "purchasePage"
+        //     name: "Notifications",
+        //     link: "appNotifications"
         // },
-        {
-            name: "Notifications",
-            link: "appNotifications"
-        },
-        {
-            name: "Settings",
-            link: "settingsPageHTML"
-        },
-        {
-            name: "Activity",
-            link: "activityFeedHTML"
-        },
+        // {
+        //     name: "Activity",
+        //     link: "activityFeedHTML"
+        // },
+        // {
+        //     name: "Settings",
+        //     link: "settingsPageHTML"
+        // },
         // {
         //     name: "Permissions",
         //     link: "permissionPage"
@@ -89,7 +87,7 @@ function allAppData() {
                         },
                     ]
                 }]
-    
+
             }]
         },
     };
@@ -102,10 +100,10 @@ function allAppData() {
         pageTitle: 'Accounts',
         pageHeader: 'Accounts',
     };
-    var purchasePage = {
-        pageTitle: 'Accounts',
-        pageHeader: 'Accounts',
-    };
+    // var purchasePage = {
+    //     pageTitle: 'Accounts',
+    //     pageHeader: 'Accounts',
+    // };
     var navLogoLink = './img/logo.png';
     var loginPageImg = './img/login.png';
     var signupPageImg = './img/signup.png';
@@ -115,9 +113,10 @@ function allAppData() {
     localStorage.setItem("mainAdminPage", JSON.stringify(mainAdminPage));
     localStorage.setItem("reportsPage", JSON.stringify(reportsPage));
     localStorage.setItem("salesPage", JSON.stringify(salesPage));
-    localStorage.setItem("purchasePage", JSON.stringify(purchasePage));
+    // localStorage.setItem("purchasePage", JSON.stringify(purchasePage));
     localStorage.setItem("navbarLinks", JSON.stringify(navbarLinks));
     localStorage.setItem("loggedIn", false);
+    localStorage.setItem("loggedInAdmin", false);
     localStorage.setItem("navLogoLink", './img/logo.png');
     localStorage.setItem("loginPageImg", './img/login.png');
     localStorage.setItem("signupPageImg", './img/signup.png');

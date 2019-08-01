@@ -1,4 +1,6 @@
 var loginPageHTML = /*html */ `
+<img src hidden onerror="checklogin()">
+
 <style>
 .p {
     border-radius: 50px !important;
@@ -64,8 +66,8 @@ function loginOnLoad() {
     console.log("loggrd in ",loggedIn)
     if (loggedIn === true) {
         mainRouter({
-            page: 'purchase',
-            html: purchasePageHTML
+            page: 'purchasePage',
+            html: purchasePage
         })
     } else {
         localStorage.setItem("loggedIn", false);
@@ -80,8 +82,8 @@ function loginForm() {
             localStorage.setItem("loggedIn", true);
             // window.location.href = "./sales.html";
             mainRouter({
-                page: 'appNotifications',
-                html: appNotifications
+                page: 'purchasePage',
+                html: purchasePage
             })
         titleBarInit('titleBarRoot');
 
@@ -99,4 +101,21 @@ function mainAdminLogin() {
         })
         // window.location.href = "./mainAdmin.html";
     }
+}
+function checklogin(){
+    var loggedIn = JSON.parse(localStorage.getItem("loggedIn"));
+    var loggedInAdmin = JSON.parse(localStorage.getItem("loggedInAdmin"));
+    if(loggedIn===true){
+        mainRouter({
+            page: 'purchasePage',
+            html: purchasePage
+        })
+    }
+    if(loggedInAdmin===true){
+        mainRouter({
+            page: 'mainAdminPage',
+            html: mainAdminPageHTML
+        })
+    }
+    // console.log()
 }

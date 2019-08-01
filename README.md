@@ -1,2 +1,0 @@
-# sultanapp
-property app

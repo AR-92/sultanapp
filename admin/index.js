@@ -27,6 +27,13 @@ var mainAdminPageHTML = /*html*/ `
 `;
 
 function logout() {
+    localStorage.setItem("loggedInAdmin", false);
     localStorage.setItem("loggedIn", false);
-    window.location.href = "./index.html";
+    mainRouter({
+        page: 'loginPage',
+        html: loginPageHTML
+    });
+    titleBarInit('titleBarRoot');
+
+    // window.location.href = "./index.html";
 }
