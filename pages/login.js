@@ -80,6 +80,7 @@ function loginForm() {
         console.log("this is login form promise", x)
         if (x === true) {
             localStorage.setItem("loggedIn", true);
+            localStorage.setItem("username", data[0].value);
             // window.location.href = "./sales.html";
             mainRouter({
                 page: 'purchasePage',

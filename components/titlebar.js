@@ -5,7 +5,8 @@
 function titleBarInit(id) {
     var login = JSON.parse(localStorage.getItem("loggedIn"));
     var loginAdmin = JSON.parse(localStorage.getItem("loggedInAdmin"));
-    console.log("titlebar i am loaded",loginAdmin)
+    var username =localStorage.getItem("username");
+    console.log("titlebar i am loaded",loginAdmin,username)
 
     var linkTemp = '';
     var navLinks = JSON.parse(localStorage.getItem("navbarLinks"));
@@ -25,7 +26,7 @@ function titleBarInit(id) {
     <div class="dropdown">
     <button class="btn btn-secondary taskBaruser btn-sm round dropdown-toggle" type="button"
         id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        @Username
+        @${username}
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 ${linkTemp}

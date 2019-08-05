@@ -1,6 +1,15 @@
 var db = new PouchDB('app');
 
 var dataTablepurchase = [];
+
+{
+    /* <button type="button" class="btn btn-sm btn-primary round" onclick="addPurchaseTokenForm()">New
+    Token</button>
+    <button type="button" class="btn btn-sm btn-primary round" onclick="addPurchaseBianaForm()">New
+    Biana</button>
+    <button type="button" class="btn btn-sm btn-primary round" onclick="addPurchasePaymentForm()">New
+    Payment </button> */
+}
 var purchasePage = /*html*/ `
 <img src hidden onerror="purchaseInit()">
 
@@ -29,12 +38,8 @@ var purchasePage = /*html*/ `
                     <div class="col-md-6 text-left">
                     </div>
                     <div class="col-md-6 text-right">
-                        <button type="button" class="btn btn-sm btn-primary round" onclick="addPurchaseTokenForm()">New
-                            Token</button>
-                            <button type="button" class="btn btn-sm btn-primary round" onclick="addPurchaseBianaForm()">New
-                            Biana</button>
-                            <button type="button" class="btn btn-sm btn-primary round" onclick="addPurchasePaymentForm()">New
-                            Payment </button>
+
+                            <button type="button" class="btn btn-sm btn-primary round" onclick="addPurchaseForm()">Create New </button>
                     </div>
                 </div>
             </div>
@@ -43,27 +48,16 @@ var purchasePage = /*html*/ `
                 <thead>
                     <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Biana</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Name</th>
+                    <th scope="col">File Number</th>
                     <th scope="col">Area</th>
                     <th scope="col">Moza</th>
                     <th scope="col">Offered By</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">Offered Price</th>
+                    <th scope="col">Owner</th>
+                    <th scope="col">View</th>
                     </tr>
                 </thead>
-                <tbody>
-                <tr>
-                <td>1</td>
-                <td>data</td>
-                <td>data</td>
-                <td>data</td>
-                <td>data</td>
-                <td>data</td>
-                <td>data</td>
-                <td>    <span  class="text-primary" onclick="openPurchaseForm('Add')"><ion-icon name="eye"></ion-icon> </span></td>
-                </tr>
-
+                <tbody id="purchaseTableData">
                 </tbody>
             </table>
         </div>
@@ -71,7 +65,565 @@ var purchasePage = /*html*/ `
         </div>
 </div>
 </div>
-<div class="modal fade addPurchaseTokenForm text-left"  tabindex="-1" role="dialog"
+
+            <div class="modal fade editPurchaseForm text-left"  tabindex="-1" role="dialog"
+aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-xl" style="max-width: 1034px;">
+    <div class="modal-content" style="border-radius: 27px;">
+        <div class="modal-header">
+            <h5 class="modal-title" >Edit Purchase</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span class="text-danger">
+                    <ion-icon name="radio-button-on"></ion-icon>
+                </span>
+            </button>
+        </div>
+        <div class="modal-body">
+        <form id="editPurchaseForm">
+        <div class="row">
+        <div class="form-group col text-primary">
+        <h5>General</h5>
+        </div>
+        </div>
+        <div class="row">
+        <div class="form-group col">
+        <label>File Number</label>
+        <input class="form-control round"  name="fileNumber" placeholder="" value="hhahah">
+        <small id="" class="form-text text-danger"
+        style="display:none"></small>
+        </div>
+        <div class="form-group col">
+        <label>Area (Kanal, marla , sq feet)</label>
+        <input class="form-control round"  name="area" placeholder="" value="">
+        <small id="" class="form-text text-danger"
+        style="display:none"></small>
+        </div>
+        <div class="form-group col">
+        <label>Moza</label>
+        <input class="form-control round"  name="moza" placeholder="" value="">
+        <small id="" class="form-text text-danger"
+        style="display:none"></small>
+        </div>
+        </div>
+        <div class="row">
+        <div class="form-group col">
+        <label>Offered Price</label>
+        <input class="form-control round"  name="offeredPrice" placeholder="" value="">
+        <small id="" class="form-text text-danger"
+        style="display:none"></small>
+        </div>
+        <div class="form-group col">
+        <label>Offered By</label>
+        <input class="form-control round"  name="offeredBy" placeholder="" value="">
+        <small id="" class="form-text text-danger"
+        style="display:none"></small>
+        </div>
+        <div class="form-group col">
+        <label>Land Owner Name</label>
+        <input class="form-control round"  name="landOwnerName" placeholder="" value="">
+        <small id="" class="form-text text-danger"
+        style="display:none"></small>
+        </div>
+        </div>
+        <div class="row">
+        <div class="form-group col text-primary">
+        <h5>Token</h5>
+        </div>
+        </div>
+        <div class="row">
+
+        <div class="form-group col">
+        <label>Token Money</label>
+        <input class="form-control round"  name="tokanMoney" placeholder="" value="">
+        <small id="" class="form-text text-danger"
+        style="display:none"></small>
+        </div>
+
+        <div class="form-group col">
+        <label>Token Types</label>
+        <input class="form-control round"  name="tokenType" placeholder="" value="">
+        <small id="" class="form-text text-danger"
+        style="display:none"></small>
+        </div>
+
+        <div class="form-group col">
+        <label>Token Remarks</label>
+        <textarea class="form-control round"  name="tokanRemarks"></textarea>
+        </div>
+
+        </div>
+        <div class="row">
+
+        <div class="form-group col">
+        <label>Token Expense Type</label>
+        <input class="form-control round"  name="tokenExpenceType" placeholder="" value="">
+        <small id="" class="form-text text-danger"
+        style="display:none"></small>
+        </div>
+
+        <div class="form-group col">
+        <label>Expense </label>
+        <input class="form-control round"  name="tokenExpenceAmount" placeholder="" value="">
+        <small id="" class="form-text text-danger"
+        style="display:none"></small>
+        </div>
+
+        <div class="form-group col">
+        <br>
+        <button type="button" class="btn btn-sm btn-primary round">Add</button>
+        </div>
+
+        </div>  
+        <div class="row">
+        <div class="form-group col text-primary">
+        <h5>Biana</h5>
+        </div>
+        </div>
+        <div class="row">
+
+        <div class="form-group col">
+        <label>Biana Amount</label>
+        <input class="form-control round"  name="bianaAmount" placeholder="" value="">
+        <small id="" class="form-text text-danger"
+        style="display:none"></small>
+        </div>
+
+        <div class="form-group col">
+        <label>Due Date</label>
+        <input class="form-control round"  name="dueDate" placeholder="" value="">
+        <small id="" class="form-text text-danger"
+        style="display:none"></small>
+        </div>
+
+        <div class="form-group col">
+        <label>Biana Remarks</label>
+        <textarea class="form-control round"  name="bianaRemarks"></textarea>
+        </div>
+
+        </div>
+        <div class="row">
+
+        <div class="form-group col">
+        <label>Biana Expense Type</label>
+        <input class="form-control round"  name="bianaExpenceType" placeholder="" value="">
+        <small id="" class="form-text text-danger"
+        style="display:none"></small>
+        </div>
+
+        <div class="form-group col">
+        <label>Expense </label>
+        <input class="form-control round"  name="bianaExpenceAmount" placeholder="" value="">
+        <small id="" class="form-text text-danger"
+        style="display:none"></small>
+        </div>
+
+        <div class="form-group col">
+        <br>
+        <button type="button" class="btn btn-sm btn-primary round">Add</button>
+        </div>
+
+        </div>
+        <div class="row">
+        <div class="form-group col text-primary">
+        <h5>Full Payment</h5>
+        </div>
+        </div>
+        <div class="row">
+        
+        <div class="form-group col">
+        <label>Full Payment</label>
+        <input class="form-control round"  name="fullPayment" placeholder="" value="">
+        <input class="form-control round" hidden name="_id" placeholder="" value="">
+        <input class="form-control round" hidden name="_rev" placeholder="" value="">
+        <small id="" class="form-text text-danger"
+        style="display:none"></small>
+        </div> 
+
+        <div class="form-group col">
+        <label>Full Payment Remarks</label>
+        <textarea class="form-control round"  name="fullPaymentRemarks"></textarea>
+        </div>
+
+        </div>
+        </form>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary round" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-sm btn-danger round" onclick="deletePurchaseForm()">Delete</button>
+        <button type="button" class="btn btn-sm btn-primary round" onclick="editPurchaseFormSubmit()">Edit</button>
+            </div>
+            </div>
+            </div>
+            </div>
+            <div class="modal fade addPurchaseForm text-left"  tabindex="-1" role="dialog"
+            aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" style="max-width: 1034px;">
+                <div class="modal-content" style="border-radius: 27px;">
+                    <div class="modal-header">
+                        <h5 class="modal-title" >Edit Purchase</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span class="text-danger">
+                                <ion-icon name="radio-button-on"></ion-icon>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    <form id="addPurchaseFormdata">
+                    <div class="row">
+                    <div class="form-group col text-primary">
+                    <h5>General</h5>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="form-group col">
+                    <label>File Number</label>
+                    <input class="form-control round"  name="fileNumber" placeholder="" value="">
+                    <small id="" class="form-text text-danger"
+                    style="display:none"></small>
+                    </div>
+                    <div class="form-group col">
+                    <label>Area (Kanal, marla , sq feet)</label>
+                    <input class="form-control round"  name="area" placeholder="" value="">
+                    <small id="" class="form-text text-danger"
+                    style="display:none"></small>
+                    </div>
+                    <div class="form-group col">
+                    <label>Moza</label>
+                    <input class="form-control round"  name="moza" placeholder="" value="">
+                    <small id="" class="form-text text-danger"
+                    style="display:none"></small>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="form-group col">
+                    <label>Offered Price</label>
+                    <input class="form-control round"  name="offeredPrice" placeholder="" value="">
+                    <small id="" class="form-text text-danger"
+                    style="display:none"></small>
+                    </div>
+                    <div class="form-group col">
+                    <label>Offered By</label>
+                    <input class="form-control round"  name="offeredBy" placeholder="" value="">
+                    <small id="" class="form-text text-danger"
+                    style="display:none"></small>
+                    </div>
+                    <div class="form-group col">
+                    <label>Land Owner Name</label>
+                    <input class="form-control round"  name="landOwnerName" placeholder="" value="">
+                    <small id="" class="form-text text-danger"
+                    style="display:none"></small>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="form-group col text-primary">
+                    <h5>Token</h5>
+                    </div>
+                    </div>
+                    <div class="row">
+            
+                    <div class="form-group col">
+                    <label>Token Money</label>
+                    <input class="form-control round"  name="tokanMoney" placeholder="" value="">
+                    <small id="" class="form-text text-danger"
+                    style="display:none"></small>
+                    </div>
+            
+                    <div class="form-group col">
+                    <label>Token Types</label>
+                    <input class="form-control round"  name="tokenType" placeholder="" value="">
+                    <small id="" class="form-text text-danger"
+                    style="display:none"></small>
+                    </div>
+            
+                    <div class="form-group col">
+                    <label>Token Remarks</label>
+                    <textarea class="form-control round"  name="tokanRemarks"></textarea>
+                    </div>
+            
+                    </div>
+                    <div class="row">
+            
+                    <div class="form-group col">
+                    <label>Token Expense Type</label>
+                    <input class="form-control round"  id="tokenExpenceType" name="tokenExpenceType" placeholder="" value="">
+                    <small class="form-text text-danger"
+                    style="display:none"></small>
+                    </div>
+            
+                    <div class="form-group col">
+                    <label>Expense </label>
+                    <input class="form-control round" id="tokenExpenceAmount"  name="tokenExpenceAmount" placeholder="" value="">
+                    <small class="form-text text-danger"
+                    style="display:none"></small>
+                    </div>
+            
+                    <div class="form-group col">
+                    <br>
+                    <button type="button" class="btn btn-sm btn-primary round" onclick="addnewTokenExpense()">Add</button>
+                    </div>
+            
+                    </div>  
+                    <div class="row" id="tokenexpensetable">
+                    <table>
+                    <tr>
+                    <td>tokenExpenceType</td>
+                    <td>tokenExpenceAmount</td>
+                    </tr>
+                    </table>
+
+                    </div>
+                    <div class="row">
+                    <div class="form-group col text-primary">
+                    <h5>Biana</h5>
+                    </div>
+                    </div>
+                    <div class="row">
+            
+                    <div class="form-group col">
+                    <label>Biana Amount</label>
+                    <input class="form-control round"  name="bianaAmount" placeholder="" value="">
+                    <small id="" class="form-text text-danger"
+                    style="display:none"></small>
+                    </div>
+            
+                    <div class="form-group col">
+                    <label>Due Date</label>
+                    <input class="form-control round"  name="dueDate" placeholder="" value="">
+                    <small id="" class="form-text text-danger"
+                    style="display:none"></small>
+                    </div>
+            
+                    <div class="form-group col">
+                    <label>Biana Remarks</label>
+                    <textarea class="form-control round"  name="bianaRemarks"></textarea>
+                    </div>
+            
+                    </div>
+                    <div class="row">
+            
+                    <div class="form-group col">
+                    <label>Biana Expense Type</label>
+                    <input class="form-control round"  name="bianaExpenceType" placeholder="" value="">
+                    <small id="" class="form-text text-danger"
+                    style="display:none"></small>
+                    </div>
+            
+                    <div class="form-group col">
+                    <label>Expense </label>
+                    <input class="form-control round"  name="bianaExpenceAmount" placeholder="" value="">
+                    <small id="" class="form-text text-danger"
+                    style="display:none"></small>
+                    </div>
+            
+                    <div class="form-group col">
+                    <br>
+                    <button type="button" class="btn btn-sm btn-primary round">Add</button>
+                    </div>
+            
+                    </div>
+                    <div class="row">
+                    <div class="form-group col text-primary">
+                    <h5>Full Payment</h5>
+                    </div>
+                    </div>
+                    <div class="row">
+                    
+                    <div class="form-group col">
+                    <label>Full Payment</label>
+                    <input class="form-control round"  name="fullPayment" placeholder="" value="">
+                    <small id="" class="form-text text-danger"
+                    style="display:none"></small>
+                    </div> 
+            
+                    <div class="form-group col">
+                    <label>Full Payment Remarks</label>
+                    <textarea class="form-control round"  name="fullPaymentRemarks"></textarea>
+                    </div>
+            
+                    </div>
+                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary round" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-sm btn-primary round" onclick="addPurchaseFormSubmit()">Add</button>
+
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+            `;
+
+
+function purchaseInit() {
+    console.log("purchaseInit");
+    db.find({
+        selector: {
+            type: 'purchase'
+        },
+        fields: ['_id' ,'fileNumber', 'area','moza','offeredBy','offeredPrice','landOwnerName'],
+    }).then((x) => {
+        dataTablepurchase = x.docs;
+        var htmldata = '';
+        dataTablepurchase.forEach((row, i) => {
+            var tableColHtml = `<td>${i+1}</td>`;
+            Object.keys(row).forEach(function (key) {
+                if (key !== '_id' && key !== '_rev' && key !== 'type') {
+                    tableColHtml = tableColHtml + `<td>${row[key]}</td>`
+                }
+            });
+            tableColHtml = tableColHtml + /*html*/ `
+            <td>    <span  class="text-primary" onclick="editPurchaseForm('${row._id}')"><ion-icon name="eye"></ion-icon> </span></td>
+        `;
+            htmldata = htmldata + `<tr id="deleteRow${row._id}">${tableColHtml}<tr>`;
+
+
+        })
+        console.log("purchaseInit data", dataTablepurchase);
+        // tableFromArray(dataTablepurchase);
+        $('#purchaseTableData').html(htmldata)
+    })
+}
+function addnewTokenExpense(){
+    $('#tokenExpenceType').val("hello")
+    $('#tokenExpenceAmount').val("hello")
+    console.log("addnewTokenExpense()")
+}
+// function addPurchaseTokenForm() {
+//     $('.addPurchaseTokenForm').modal('show');
+
+// }
+
+// function addPurchaseBianaForm() {
+//     $('.addPurchaseBianaForm').modal('show');
+// }
+
+// function addPurchasePaymentForm() {
+//     $('.addPurchasePaymentForm').modal('show');
+// }
+
+function editPurchaseForm(id) {
+    db.get(id).then((doc)=>{
+        // var form=$('#editPurchaseForm')[0][0].value='hello';
+        // var form=$('#editPurchaseForm')[0][0].name;
+        // var form=$('#editPurchaseForm')[0][0].name;
+        // var form=$('#editPurchaseForm')[0][0].type;
+        // debugger;
+        for(var i =0;i<$('#editPurchaseForm')[0].length;i++){
+            if($('#editPurchaseForm')[0][0].localName==='input'){
+                $('#editPurchaseForm')[0][i].value=doc[$('#editPurchaseForm')[0][i].name]
+                // console.log("editPurchaseForm",$('#editPurchaseForm')[0][i].value,doc[$('#editPurchaseForm')[0][i].name]);
+            }
+        }
+        // form.forEach((row,i)=>{
+        //     console.log("editPurchaseForm",$('#editPurchaseForm')[0][i].value,doc[$('#editPurchaseForm')[0][i].name]);
+        //     $('#editPurchaseForm')[0][i].value=doc[$('#editPurchaseForm')[0][i].name];
+
+        // })
+        // console.log("editPurchaseForm",doc,form);
+
+        $('.editPurchaseForm').modal('show');
+    })
+}
+
+function addPurchaseForm() {
+    $('.addPurchaseForm').modal('show');
+}
+
+function addPurchaseFormSubmit() {
+    var data = $('#addPurchaseFormdata').serializeArray();
+    var obj = {};
+    data.forEach((element) => {
+        obj[element.name] = element.value
+    })
+    obj['type'] = 'purchase';
+    db.post(obj).then(() => {
+        console.log("addPurchaseFormdata ", obj);
+        purchaseInit()
+        document.getElementById("addPurchaseFormdata").reset();
+        $('.addPurchaseForm').modal('hide');
+
+    })
+}
+function deletePurchaseForm(){
+    var data = $('#editPurchaseForm').serializeArray();
+    var obj = {};
+    data.forEach((element) => {
+        obj[element.name] = element.value
+    })
+    obj['type'] = 'purchase';
+    db.remove(obj).then(() => {
+        console.log("editPurchaseForm ", obj);
+        purchaseInit()
+        $('.editPurchaseForm').modal('hide');
+    })
+}
+function editPurchaseFormSubmit() {
+    var data = $('#editPurchaseForm').serializeArray();
+    var obj = {};
+    data.forEach((element) => {
+        obj[element.name] = element.value
+    })
+    obj['type'] = 'purchase';
+    // obj['_id'] = 'purchase';
+    // obj['_rev'] = 'purchase';
+    db.post(obj).then(() => {
+        console.log("editPurchaseForm ", obj);
+        // document.getElementById("editPurchaseForm").reset();
+        purchaseInit()
+        $('.editPurchaseForm').modal('hide');
+    })
+}
+
+// function addPurchaseTokenFormSubmit() {
+//     var data = $('#addPurchaseTokenForm').serializeArray();
+//     var obj = {};
+//     data.forEach((element) => {
+//         obj[element.name] = element.value
+//     })
+//     obj['type'] = 'purchase';
+//     db.post(obj).then(() => {
+//         console.log("addPurchaseTokenFormSubmit ", obj);
+//         document.getElementById("addPurchaseTokenForm").reset();
+
+//     })
+
+// }
+
+// function addPurchaseBianaFormSubmit() {
+//     var data = $('#addPurchaseBianaForm').serializeArray();
+//     var obj = {};
+//     data.forEach((element) => {
+//         obj[element.name] = element.value
+//     })
+//     obj['type'] = 'purchase';
+//     db.post(obj).then(() => {
+//         console.log("addPurchaseBianaFormSubmit ", obj);
+//         document.getElementById("addPurchaseBianaForm").reset();
+
+//     })
+// }
+
+// function addPurchaseFullPayFormSubmit() {
+//     var data = $('#addPurchaseFullPayForm').serializeArray();
+//     var obj = {};
+//     data.forEach((element) => {
+//         obj[element.name] = element.value
+//     })
+//     obj['type'] = 'purchase';
+//     db.post(obj).then(() => {
+//         console.log("addPurchaseFullPayForm ", obj);
+//         document.getElementById("addPurchaseFullPayForm").reset();
+
+//     })
+// }
+// function editPurchaseTokenForm() {
+//     $('.editPurchaseTokenForm').modal('show');
+// }
+
+// function editPurchaseBianaForm() {
+//     $('.editPurchaseBianaForm').modal('show');
+// }
+{/* <div class="modal fade addPurchaseTokenForm text-left"  tabindex="-1" role="dialog"
 aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
 <div class="modal-dialog modal-xl" style="max-width: 1034px;">
     <div class="modal-content" style="border-radius: 27px;">
@@ -88,20 +640,20 @@ aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
         <div class="row">
         <div class="form-group col">
         <label>File Number</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="fileNumber" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
 
         <label>Area (Kanal, marla , sq feet)</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="area" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
         <label>Moza</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="moza" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
@@ -109,39 +661,39 @@ aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
         <div class="row">
         <div class="form-group col">
         <label>Token Money</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="tokanMoney" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
 
         <label>Offered By</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="offeredBy" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
         <label>Token Remarks</label>
-        <textarea class="form-control round"  name=""></textarea>
+        <textarea class="form-control round"  name="tokanRemarks"></textarea>
         </div>
         </div>
         <div class="row">
         <div class="form-group col">
         <label>Offered Price</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="offeredPrice" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
 
         <label>Token Types</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="tokenType" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
         <label>Land Owner Name</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="landOwnerName" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
@@ -149,14 +701,14 @@ aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
         <div class="row">
         <div class="form-group col">
         <label>Token Expense Type</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="tokenExpenceType" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
 
         <label>Expense </label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="tokenExpenceAmount" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
@@ -169,8 +721,7 @@ aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-secondary round" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-sm btn-danger round">Delete</button>
-            <button type="button" class="btn btn-sm btn-primary round">Add</button>
+            <button type="button" class="btn btn-sm btn-primary round" onclick="addPurchaseTokenFormSubmit()">Add</button>
         </div>
     </div>
 </div>
@@ -192,19 +743,19 @@ aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
         <div class="row">
         <div class="form-group col">
         <label>File Number</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="fileNumber" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
         <label>Biana Amount</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="bianaAmount" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
         <label>Moza</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="moza" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
@@ -212,20 +763,20 @@ aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
         <div class="row">
         <div class="form-group col">
         <label>Token Money</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="tokenMoney" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
 
         <label>Area (Kanal, marla , sq feet)</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="area" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
         <label>Land Owner Name</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="landOwnerName" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
@@ -234,46 +785,45 @@ aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
         <div class="row">
         <div class="form-group col">
         <label>Offered By</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="OfferedBy" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
 
         <label>Offered Price</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="offeredPrice" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
         <label>Token Remarks</label>
-        <textarea class="form-control round"  name=""></textarea>
+        <textarea class="form-control round"  name="tokenRemarks"></textarea>
         </div>
         </div>  
         
         <div class="row">
         <div class="form-group col">
-        <label>Deu Date</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <label>Due Date</label>
+        <input class="form-control round"  name="dueDate" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
-        <label>Token Remarks</label>
-        <textarea class="form-control round"  name=""></textarea>
+        <label>Biana Remarks</label>
+        <textarea class="form-control round"  name="bianaRemarks"></textarea>
         </div>
         </div>  
-                <div class="row">
+        <div class="row">
         <div class="form-group col">
         <label>Biana Expense Type</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="bianaExpenceType" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
-
         <label>Expense </label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="bianaExpenceAmount" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
@@ -286,8 +836,7 @@ aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-secondary round" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-sm btn-danger round">Delete</button>
-            <button type="button" class="btn btn-sm btn-primary round">Add</button>
+            <button type="button" class="btn btn-sm btn-primary round" onclick="addPurchaseBianaFormSubmit()">Add</button>
         </div>
     </div>
 </div>
@@ -305,23 +854,23 @@ aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
             </button>
         </div>
         <div class="modal-body">
-        <form id="addPurchaseBianaForm">
+        <form id="addPurchaseFullPayForm">
         <div class="row">
         <div class="form-group col">
         <label>File Number</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="fileNumber" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
         <label>Biana Amount</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="bianaAmount" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
         <label>Moza</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="moza" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
@@ -329,20 +878,20 @@ aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
         <div class="row">
         <div class="form-group col">
         <label>Token Money</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="tokenMoney" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
 
         <label>Area (Kanal, marla , sq feet)</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="area" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
         <label>Land Owner Name</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="landOwnerName" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
@@ -351,20 +900,20 @@ aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
         <div class="row">
         <div class="form-group col">
         <label>Offered By</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="offeredBy" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
 
         <label>Offered Price</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="OfferedPrice" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
         <div class="form-group col">
         <label>Full Payment</label>
-        <input class="form-control round"  name="" placeholder="" value="">
+        <input class="form-control round"  name="fullPayment" placeholder="" value="">
         <small id="" class="form-text text-danger"
         style="display:none"></small>
         </div>
@@ -374,51 +923,15 @@ aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
         <div class="row">
         <div class="form-group col">
         <label>Full Payment Remarks</label>
-        <textarea class="form-control round"  name=""></textarea>
+        <textarea class="form-control round"  name="fullPaymentRemarks"></textarea>
         </div>
         </div>
         </form>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-secondary round" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-sm btn-danger round">Delete</button>
-            <button type="button" class="btn btn-sm btn-primary round">Add</button>
-        </div>
-    </div>
-</div>
-</div>
-`;
-
-function purchaseInit() {
-    console.log("purchaseInit");
-    db.find({
-        selector: {
-            type: 'purchase'
-        }
-    }).then((x) => {
-        dataTablepurchase = x.docs;
-        console.log("purchaseInit data", dataTablepurchase);
-        // tableFromArray(dataTablepurchase);
-    })
-}
-
-function addPurchaseTokenForm() {
-    $('.addPurchaseTokenForm').modal('show');
-
-}
-
-function addPurchaseBianaForm() {
-    $('.addPurchaseBianaForm').modal('show');
-}
-
-function addPurchasePaymentForm() {
-    $('.addPurchasePaymentForm').modal('show');
-}
-
-// function editPurchaseTokenForm() {
-//     $('.editPurchaseTokenForm').modal('show');
-// }
-
-// function editPurchaseBianaForm() {
-//     $('.editPurchaseBianaForm').modal('show');
-// }
+            <button type="button" class="btn btn-sm btn-primary round" onclick="addPurchaseFullPayFormSubmit()">Add</button>
+            </div>
+            </div>
+            </div>
+            </div> */}
