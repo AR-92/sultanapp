@@ -1,7 +1,3 @@
-// var titleBarHTML = /*html*/ `
-// <div id="titleBarRoot" onload='titleBarInit("titleBarRoot")'></div>
-// `;
-
 function titleBarInit(id) {
     var login = JSON.parse(localStorage.getItem("loggedIn"));
     var loginAdmin = JSON.parse(localStorage.getItem("loggedInAdmin"));
@@ -11,10 +7,7 @@ function titleBarInit(id) {
     var linkTemp = '';
     var navLinks = JSON.parse(localStorage.getItem("navbarLinks"));
     navLinks.forEach((element) => {
-        linkTemp = linkTemp + `<a class="dropdown-item"  onclick="mainRouter({
-            page: '${element.name}',
-            html: ${element.link}
-        })">${element.name} </a>`;
+        linkTemp = linkTemp + `<a class="dropdown-item"  onclick="r(${element.link})">${element.name} </a>`;
     })
     var logo = '<img src="./img/logo.png" class="invisible" style="max-width: 39%;" ></img>';
     var links = '';
@@ -30,7 +23,7 @@ function titleBarInit(id) {
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 ${linkTemp}
-        <button class="dropdown-item" onclick="logout()"><span class="text-danger">Log Out</span></button>
+        <a class="dropdown-item" onclick="logout()"><span class="text-danger">Log Out</span></a>
     </div>
 </div>
     `;
@@ -59,18 +52,11 @@ ${linkTemp}
             @SuperAdmin
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" onclick="mainRouter({
-            e:event,
-            page: 'AdminAccountsPage',
-            html: mainAdminPageHTML
-        })">Accounts</a>
-        <a class="dropdown-item" onclick="mainRouter({
-            page: 'AdminActivityPage',
-            html: adminActivityFeedHTML
-        })">Activities</a>
+        <a class="dropdown-item" onclick="r('AdminAccountsPage')">Accounts</a>
+        <a class="dropdown-item" onclick="r('AdminActivityPage')">Activities</a>
         <a class="dropdown-item" onclick="logout()"><span class="text-danger">Log Out</span></a>
         </div>
-    </div>
+         </div>
         `;  
     }
     var titlebarComponents = /*html*/ `
@@ -94,24 +80,16 @@ ${linkTemp}
     </style>
     <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand">
+    <button type="button" class="btn btn-sm btn-secondary round">Purchase</button>
     </a>
+
     <form class="form-inline">
+    <button type="button" class="btn btn-sm btn-primary round">Create New </button>
     ${links}
     </form>
     </nav>
     <hr style="margin: 0px;">
     `;
-    // ${logo}
-    // <span class="text-success">
-    // <ion-icon name="radio-button-on" onclick="appMinimize()"></ion-icon>
-    // </span>
-    // <span class="text-warning">
-    // <ion-icon name="radio-button-on" onclick="appMaximize()"></ion-icon>
-    // </span>
-    // <span class="text-danger">
-    // <ion-icon name="radio-button-on" onclick="appClose()"></ion-icon>
-    // </span>
-    // <ion-icon name="radio-button-on" id="" onclick="window.top.close();"></ion-icon>
     if(login===false && loginAdmin===false || loginAdmin===undefined ){
         document.getElementById(id).innerHTML='';
     }else{

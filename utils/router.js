@@ -1,20 +1,17 @@
-var mainRouter = function (name) {
-    localStorage.setItem("currentPage", name.page);
-    document.getElementById('root').innerHTML = name.html;
-}
-var subRouter = function (name) {
-    localStorage.setItem("currentPage", name.page);
-    document.getElementById('root').innerHTML = name.html;
+// var mainRouter = function (name) {
+//     localStorage.setItem("currentPage", name.page);
+//     document.getElementById('root').innerHTML = name.html;
+// }
+// var subRouter = function (name) {
+//     localStorage.setItem("currentPage", name.page);
+//     document.getElementById('root').innerHTML = name.html;
+// }
+
+function r(name) {
+    eval(`${name}.init()`);
 }
 
-function logout() {
-    appRest();
-    mainRouter({
-        page: 'loginPage',
-        html: loginPageHTML
-    })
-}
-function appRest(){
+function appRest() {
     localStorage.clear();
     allAppData();
 }
